@@ -1,0 +1,22 @@
+python3 project_1_views.py      results
+
+Connected to Database!
+
+
+python3 project_1.py        results
+
+Connected to Database!
+
+Views per Article for Top 3 Articles in Descending Order
+Candidate is jerk, alleges rival : 338647
+Bears love berries, alleges bear : 253801
+Bad things gone, say good people : 170098
+
+Views per Author in Descending Order
+Ursula La Multa : 507594
+Rudolf von Treppenwitz : 423457
+Anonymous Contributor : 170098
+Markoff Chaney : 84557
+
+Request error percentages > 1% each day in Descending Order
+2016-07-17 00:00:00+00:00 : 2.26268624680273%
