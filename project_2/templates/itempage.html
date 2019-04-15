@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <link rel="stylesheet"
+            type="text/css"
+            href={{url_for('static', filename='style.css')}}>
+        <meta charset="utf-8">
+        <title></title>
+    </head>
+    <body>
+        <div class="nav-bar">
+            <a class="nav-link" href={{url_for('catalog')}}>
+                Sports Gear
+            </a>
+            {% if 'username' not in loginsession %}
+                <a id="login-link" class="nav-link" href="{{url_for('showLogin')}}">
+                    Login
+                </a>
+            {% endif %}
+            {% if 'username' in loginsession %}
+                <a id="logout-link" class="nav-link" href="{{url_for('gdisconnect')}}">
+                    Logout
+                </a>
+            {% endif %}
+        </div>
+        <div class="contents">
+            <div class="links categories">
+                <h2>Categories</h2>
+                <hr>
+                <ul>
+                    {% for category in categories %}
+                        <li>
+                            <a href={{url_for('categoryCatalog',
+                            category_name=category.name)}}>
+                                <h3>{{category.name}}</h3>
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="links items">
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <ul>
+                            {% for message in messages %}
+                                <li class="flash"><strong>{{ message }}</strong></li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                {% endwith %}
+                <h2>{{item.name}} ({{item.category.name}})</h2>
+                {% if usercreated %}
+                    <div class="editer">
+                        <a href={{url_for('editItem',
+                                          item_name=item.name,
+                                          item_id=item.id)}}>
+                            Edit</a>
+                        <a href={{url_for('deleteItem',
+                                          item_name=item.name,
+                                          item_id=item.id)}}>
+                            Delete</a>
+                    </div>
+                {% endif %}
+                <hr>
+                <p>{{item.description}}</p>
+            </div>
+        </div>
+    </body>
+</html>

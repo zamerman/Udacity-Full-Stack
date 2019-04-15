@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <link rel="stylesheet"
+            type="text/css"
+            href={{url_for('static', filename='style.css')}}>
+        <meta charset="utf-8">
+        <title></title>
+    </head>
+    <body>
+        <div class="nav-bar">
+            <a class="nav-link" href={{url_for('catalog')}}>
+                Sports Gear
+            </a>
+            {% if 'username' not in loginsession %}
+                <a id="login-link" class="nav-link" href="{{url_for('showLogin')}}">
+                    Login
+                </a>
+            {% endif %}
+            {% if 'username' in loginsession %}
+                <a id="logout-link" class="nav-link" href="{{url_for('gdisconnect')}}">
+                    Logout
+                </a>
+            {% endif %}
+        </div>
+        <div class="contents">
+            <div class="links categories">
+                <h2>Categories</h2>
+                <hr>
+                <ul>
+                    {% for category in categories %}
+                        <li>
+                            <a href={{url_for('categoryCatalog',
+                            category_name=category.name)}}>
+                                <h3>{{category.name}}</h3>
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="links items">
+                <h2>{{category.name}} Items ({{items.count()}} Items)</h2>
+                {% if 'username' in loginsession %}
+                    <div class="editer">
+                        <a href="{{url_for('createItem')}}">Add Item</a>
+                    </div>
+                {% endif %}
+                <hr>
+                <ul>
+                    {% for item in items %}
+                        <li>
+                            <a href={{url_for('itemCatalog',
+                            cat_name=item.category.name,
+                            item_name=item.name,
+                            item_id=item.id)}}>
+                                <h3>{{item.name}} ({{item.category.name}})</h3>
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </body>
+</html>
